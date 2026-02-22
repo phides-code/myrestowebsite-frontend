@@ -1,28 +1,31 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useGetCoconutsQuery, usePostCoconutMutation } from './coconutsApiSlice';
+import {
+    useGetMenuitemsQuery,
+    usePostMenuitemMutation,
+} from './menuitemsApiSlice';
 
-interface AddCoconutProps {
+interface AddMenuitemProps {
     setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddCoconut = ({ setShowSuccess }: AddCoconutProps) => {
+const AddMenuitem = ({ setShowSuccess }: AddMenuitemProps) => {
     const navigate = useNavigate();
 
-    const [newCoconut, setNewCoconut] = useState({
+    const [newMenuitem, setNewMenuitem] = useState({
         content: '',
     });
 
-    const [postCoconut, { isLoading: isPostLoading, isError }] =
-        usePostCoconutMutation();
-    const { refetch, isFetching: isGetFetching } = useGetCoconutsQuery();
+    const [postMenuitem, { isLoading: isPostLoading, isError }] =
+        usePostMenuitemMutation();
+    const { refetch, isFetching: isGetFetching } = useGetMenuitemsQuery();
 
     const isLoading = isPostLoading || isGetFetching;
-    const submitDisabled = isLoading || !newCoconut.content;
+    const submitDisabled = isLoading || !newMenuitem.content;
     const cancelDisabled = isLoading;
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNewCoconut({ ...newCoconut, content: e.target.value });
+        setNewMenuitem({ ...newMenuitem, content: e.target.value });
     };
 
     const handleCancel = () => {
@@ -31,10 +34,10 @@ const AddCoconut = ({ setShowSuccess }: AddCoconutProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Adding new Coconut:', newCoconut);
+        console.log('Adding new Menuitem:', newMenuitem);
 
         try {
-            const postResult = await postCoconut(newCoconut).unwrap();
+            const postResult = await postMenuitem(newMenuitem).unwrap();
 
             if (postResult.errorMessage) {
                 throw new Error(postResult.errorMessage);
@@ -44,31 +47,31 @@ const AddCoconut = ({ setShowSuccess }: AddCoconutProps) => {
             setShowSuccess(true);
             navigate('/');
         } catch (error) {
-            console.error('Error adding coconut:', error);
+            console.error('Error adding menuitem:', error);
         }
     };
 
     return (
         <div>
-            <h1>Add Coconut</h1>
-            <p>Coconuts are a great source of potassium!</p>
+            <h1>Add Menuitem</h1>
+            <p>Menuitems are a great source of potassium!</p>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='coconutContent'>Coconut Content:</label>
+                    <label htmlFor='menuitemContent'>Menuitem Content:</label>
                     <input
                         type='text'
-                        id='coconutContent'
-                        name='coconutContent'
+                        id='menuitemContent'
+                        name='menuitemContent'
                         required
-                        placeholder='Enter coconut content'
+                        placeholder='Enter menuitem content'
                         autoFocus
                         onChange={handleOnChange}
-                        value={newCoconut.content}
+                        value={newMenuitem.content}
                         disabled={isLoading}
                     />
                 </div>
                 <button type='submit' disabled={submitDisabled}>
-                    Add Coconut
+                    Add Menuitem
                 </button>
 
                 <button
@@ -78,9 +81,9 @@ const AddCoconut = ({ setShowSuccess }: AddCoconutProps) => {
                 >
                     Cancel
                 </button>
-                {isError && <p>Error adding coconut. Please try again.</p>}
+                {isError && <p>Error adding menuitem. Please try again.</p>}
             </form>
         </div>
     );
 };
-export default AddCoconut;
+export default AddMenuitem;

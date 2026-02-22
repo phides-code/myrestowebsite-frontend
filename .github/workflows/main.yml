@@ -19,7 +19,8 @@ jobs:
               run: |
                   touch .env
                   echo VITE_AWS_REGION=${{ secrets.AWS_REGION }} >> .env
-                  echo VITE_COCONUTS_SERVICE_URL=${{ secrets.COCONUTS_SERVICE_URL }} >> .env
+                  echo VITE_MENUITEMS_SERVICE_URL=${{ secrets.MENUITEMS_SERVICE_URL }} >> .env
+                  echo VITE_SETTINGS_SERVICE_URL=${{ secrets.SETTINGS_SERVICE_URL }} >> .env
 
             - name: Build
               run: npm run build

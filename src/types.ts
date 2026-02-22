@@ -1,4 +1,4 @@
-export interface Coconut {
+export interface Menuitem {
     id: string;
     content: string;
     createdOn: number;

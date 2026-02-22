@@ -1,13 +1,13 @@
 import { useParams } from 'react-router';
 import {
-    useGetCoconutByIdQuery,
-    useGetCoconutsQuery,
-    usePutCoconutMutation,
-} from './coconutsApiSlice';
+    useGetMenuitemByIdQuery,
+    useGetMenuitemsQuery,
+    usePutMenuitemMutation,
+} from './menuitemsApiSlice';
 import { useState } from 'react';
 
-const ViewCoconut = () => {
-    const { coconutId } = useParams<{ coconutId: string }>();
+const ViewMenuitem = () => {
+    const { menuitemId } = useParams<{ menuitemId: string }>();
 
     const [editMode, setEditMode] = useState(false);
     const [updatedContent, setUpdatedContent] = useState('');
@@ -19,11 +19,11 @@ const ViewCoconut = () => {
         isLoading: isQueryLoading,
         isFetching: isQueryFetching,
         refetch: refetchQuery,
-    } = useGetCoconutByIdQuery(coconutId as string);
-    const [putCoconut, { isLoading: isPutLoading, isError: isPutError }] =
-        usePutCoconutMutation();
+    } = useGetMenuitemByIdQuery(menuitemId as string);
+    const [putMenuitem, { isLoading: isPutLoading, isError: isPutError }] =
+        usePutMenuitemMutation();
     const { isFetching: isGetFetching, refetch: refetchGet } =
-        useGetCoconutsQuery();
+        useGetMenuitemsQuery();
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUpdatedContent(e.target.value);
@@ -44,11 +44,11 @@ const ViewCoconut = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Updating Coconut:', updatedContent);
+        console.log('Updating Menuitem:', updatedContent);
 
         try {
-            const putResult = await putCoconut({
-                id: coconutId as string,
+            const putResult = await putMenuitem({
+                id: menuitemId as string,
                 content: updatedContent,
             }).unwrap();
 
@@ -60,7 +60,7 @@ const ViewCoconut = () => {
             setShowSuccess(true);
             setEditMode(false);
         } catch (error) {
-            console.error('Error adding coconut:', error);
+            console.error('Error adding menuitem:', error);
         }
     };
 
@@ -68,39 +68,39 @@ const ViewCoconut = () => {
         return <div>Loading...</div>;
     }
     if (isQueryError) {
-        return <div>Error loading coconut.</div>;
+        return <div>Error loading menuitem.</div>;
     }
-    const coconut = data?.data;
-    if (!coconut) {
-        return <div>Coconut not found.</div>;
+    const menuitem = data?.data;
+    if (!menuitem) {
+        return <div>Menuitem not found.</div>;
     }
 
-    const contentUnchanged = coconut.content === updatedContent;
+    const contentUnchanged = menuitem.content === updatedContent;
     const isLoading = isPutLoading || isQueryFetching || isGetFetching;
     const submitDisabled = isLoading || contentUnchanged || !updatedContent;
     const cancelDisabled = isLoading;
 
     return (
         <div>
-            <h1>Coconut Details</h1>
-            <p>ID: {coconut.id}</p>
-            <p>Created At: {new Date(coconut.createdOn).toLocaleString()}</p>
+            <h1>Menuitem Details</h1>
+            <p>ID: {menuitem.id}</p>
+            <p>Created At: {new Date(menuitem.createdOn).toLocaleString()}</p>
 
             {editMode ? (
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor='coconutContent'>Content:</label>
+                        <label htmlFor='menuitemContent'>Content:</label>
                         <input
                             type='text'
-                            id='coconutContent'
-                            name='coconutContent'
-                            defaultValue={coconut.content}
+                            id='menuitemContent'
+                            name='menuitemContent'
+                            defaultValue={menuitem.content}
                             required
                             onChange={handleOnChange}
                             disabled={isLoading}
                         />
                         <button type='submit' disabled={submitDisabled}>
-                            Update Coconut
+                            Update Menuitem
                         </button>
                         <button
                             type='button'
@@ -110,19 +110,19 @@ const ViewCoconut = () => {
                             Cancel
                         </button>
                         {isPutError && (
-                            <p>Error updating coconut. Please try again.</p>
+                            <p>Error updating menuitem. Please try again.</p>
                         )}
                     </form>
                 </div>
             ) : (
                 <div>
-                    <p>Content: {coconut.content}</p>
+                    <p>Content: {menuitem.content}</p>
                     <button onClick={handleEdit}>Edit</button>
                 </div>
             )}
             {showSuccess && (
                 <div>
-                    <h2>Coconut updated successfully!</h2>
+                    <h2>Menuitem updated successfully!</h2>
                     <button
                         onClick={() => {
                             setShowSuccess(false);
@@ -136,4 +136,4 @@ const ViewCoconut = () => {
     );
 };
 
-export default ViewCoconut;
+export default ViewMenuitem;

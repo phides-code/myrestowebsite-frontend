@@ -1,5 +1,5 @@
-import Coconuts from '../features/coconuts/Coconuts';
+import Menuitems from '../features/menuitems/Menuitems';
 
 export const App = () => {
-    return <Coconuts />;
+    return <Menuitems />;
 };

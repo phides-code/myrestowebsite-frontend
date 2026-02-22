@@ -1,28 +1,30 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import CoconutHeader from './CoconutHeader';
-import ListCoconuts from './ListCoconuts';
-import ViewCoconut from './ViewCoconut';
-import AddCoconut from './AddCoconut';
+import MenuitemHeader from './MenuitemHeader';
+import ListMenuitems from './ListMenuitems';
+import ViewMenuitem from './ViewMenuitem';
+import AddMenuitem from './AddMenuitem';
 
-const Coconuts = () => {
+const Menuitems = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     return (
         <div>
             <BrowserRouter>
-                <CoconutHeader />
+                <MenuitemHeader />
                 <Routes>
-                    <Route path='/' element={<ListCoconuts />} />
-                    <Route path='/:coconutId' element={<ViewCoconut />} />
+                    <Route path='/' element={<ListMenuitems />} />
+                    <Route path='/:menuitemId' element={<ViewMenuitem />} />
                     <Route
-                        path='/add-coconut'
-                        element={<AddCoconut setShowSuccess={setShowSuccess} />}
+                        path='/add-menuitem'
+                        element={
+                            <AddMenuitem setShowSuccess={setShowSuccess} />
+                        }
                     />
                 </Routes>
             </BrowserRouter>
             {showSuccess && (
                 <div>
-                    <h2>Coconut added successfully!</h2>
+                    <h2>Menuitem added successfully!</h2>
                     <button
                         onClick={() => {
                             setShowSuccess(false);
@@ -35,4 +37,4 @@ const Coconuts = () => {
         </div>
     );
 };
-export default Coconuts;
+export default Menuitems;
