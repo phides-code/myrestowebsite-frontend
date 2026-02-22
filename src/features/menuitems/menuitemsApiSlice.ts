@@ -31,33 +31,8 @@ export const menuitemsApiSlice = createApi({
                 method: 'GET',
             }),
         }),
-        postMenuitem: build.mutation<MenuitemApiResponse, Partial<Menuitem>>({
-            query: (newMenuitem) => ({
-                url: '',
-                method: 'POST',
-                body: newMenuitem,
-            }),
-        }),
-        deleteMenuitem: build.mutation<MenuitemApiResponse, string>({
-            query: (id) => ({
-                url: `/${id}`,
-                method: 'DELETE',
-            }),
-        }),
-        putMenuitem: build.mutation<MenuitemApiResponse, Partial<Menuitem>>({
-            query: (updatedMenuitem) => ({
-                url: `/${updatedMenuitem.id}`,
-                method: 'PUT',
-                body: updatedMenuitem,
-            }),
-        }),
     }),
 });
 
-export const {
-    useGetMenuitemsQuery,
-    useGetMenuitemByIdQuery,
-    usePostMenuitemMutation,
-    useDeleteMenuitemMutation,
-    usePutMenuitemMutation,
-} = menuitemsApiSlice;
+export const { useGetMenuitemsQuery, useGetMenuitemByIdQuery } =
+    menuitemsApiSlice;

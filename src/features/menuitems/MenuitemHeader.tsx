@@ -6,9 +6,6 @@ const MenuitemHeader = () => {
             <div>
                 <Link to='/'>Menuitems</Link>
             </div>
-            <div>
-                <Link to='/add-menuitem'>Add Menuitem</Link>
-            </div>
         </div>
     );
 };
