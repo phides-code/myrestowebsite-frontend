@@ -1,31 +1,21 @@
+import type { MenuCategory } from '../../types';
 import MenuitemListItem from './MenuitemListItem';
-import { useGetMenuitemsQuery } from './menuitemsApiSlice';
 
-const ListMenuitems = () => {
-    const { data, isError, isLoading } = useGetMenuitemsQuery();
+interface ListMenuitemsProps {
+    menuCategory: MenuCategory;
+}
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-    if (isError) {
-        return <div>Error loading menuitems.</div>;
-    }
-
-    const menuitems = data?.data ?? [];
-    if (menuitems.length === 0) {
-        return <div>No menuitems found.</div>;
-    }
-
+const ListeMenuitems = ({ menuCategory }: ListMenuitemsProps) => {
     return (
         <div>
-            <h1>Menuitems List</h1>
-            <ul>
-                {menuitems.map((menuitem) => (
+            <p>{menuCategory.category}</p>
+            <p>
+                {menuCategory.menuitems.map((menuitem) => (
                     <MenuitemListItem key={menuitem.id} menuitem={menuitem} />
                 ))}
-            </ul>
+            </p>
         </div>
     );
 };
 
-export default ListMenuitems;
+export default ListeMenuitems;

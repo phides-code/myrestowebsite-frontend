@@ -1,10 +1,21 @@
-import { Link } from 'react-router';
+import { URL_PREFIX } from '../../constants';
 import type { Menuitem } from '../../types';
 
 const MenuitemListItem = ({ menuitem }: { menuitem: Menuitem }) => {
     return (
-        <li>
-            <Link to={`/${menuitem.id}`}> {menuitem.content}</Link>
+        <li key={menuitem.id}>
+            <div>{menuitem.title}</div>
+            {menuitem.imageSource.uuidName && (
+                <img
+                    src={`${URL_PREFIX}/assets/${menuitem.imageSource.uuidName}`}
+                    alt={menuitem.title}
+                    style={{
+                        width: '100px',
+                    }}
+                />
+            )}
+            <div>{menuitem.description}</div>
+            <div>{menuitem.price}</div>
         </li>
     );
 };
