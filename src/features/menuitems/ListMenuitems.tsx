@@ -5,17 +5,17 @@ interface ListMenuitemsProps {
     menuCategory: MenuCategory;
 }
 
-const ListeMenuitems = ({ menuCategory }: ListMenuitemsProps) => {
+const ListMenuitems = ({ menuCategory }: ListMenuitemsProps) => {
     return (
         <div>
             <p>{menuCategory.category}</p>
-            <p>
+            <ul>
                 {menuCategory.menuitems.map((menuitem) => (
                     <MenuitemListItem key={menuitem.id} menuitem={menuitem} />
                 ))}
-            </p>
+            </ul>
         </div>
     );
 };
 
-export default ListeMenuitems;
+export default ListMenuitems;

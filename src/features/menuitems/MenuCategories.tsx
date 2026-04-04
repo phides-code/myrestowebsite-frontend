@@ -1,5 +1,5 @@
 import type { MenuCategory } from '../../types';
-import ListeMenuitems from './ListMenuitems';
+import ListMenuitems from './ListMenuitems';
 import { useGetMenuitemsQuery } from './menuitemsApiSlice';
 
 const MenuCategories = () => {
@@ -25,14 +25,11 @@ const MenuCategories = () => {
         menuitems: menuitems.filter((m) => m.category === category),
     }));
 
-    console.log('categorizedMenuitems');
-    console.log(categorizedMenuitems);
-
     return (
         <div>
             <h1>Menu items List</h1>
             {categorizedMenuitems.map((menuCategory) => (
-                <ListeMenuitems
+                <ListMenuitems
                     key={menuCategory.category}
                     menuCategory={menuCategory}
                 />
