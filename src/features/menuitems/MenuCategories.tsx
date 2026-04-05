@@ -27,7 +27,7 @@ const MenuCategories = () => {
 
     return (
         <div>
-            <h1>Menu items List</h1>
+            <h1>Menu items</h1>
             {categorizedMenuitems.map((menuCategory) => (
                 <ListMenuitems
                     key={menuCategory.category}
