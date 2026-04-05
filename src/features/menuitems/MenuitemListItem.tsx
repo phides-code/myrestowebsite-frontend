@@ -7,7 +7,7 @@ const MenuitemListItem = ({ menuitem }: { menuitem: Menuitem }) => {
             <div>{menuitem.title}</div>
             {menuitem.imageSource.uuidName && (
                 <img
-                    src={`${URL_PREFIX}/assets/${menuitem.imageSource.uuidName}`}
+                    src={`${URL_PREFIX}/images/${menuitem.imageSource.uuidName}`}
                     alt={menuitem.title}
                     style={{
                         width: '100px',
