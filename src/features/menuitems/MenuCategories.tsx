@@ -9,13 +9,13 @@ const MenuCategories = () => {
         return <div>Loading...</div>;
     }
     if (isError) {
-        return <div>Error loading menuitems.</div>;
+        return <div>Error loading menu items.</div>;
     }
 
     const menuitems = data?.data ?? [];
 
     if (menuitems.length === 0) {
-        return <div>No menuitems found.</div>;
+        return <div>No menu items found.</div>;
     }
 
     const categorizedMenuitems: MenuCategory[] = [
