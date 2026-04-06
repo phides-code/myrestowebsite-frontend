@@ -1,9 +1,14 @@
+import { BrowserRouter, Route, Routes } from 'react-router';
 import MenuCategories from '../features/menuitems/MenuCategories';
 import { useGetSettingsQuery } from '../features/settings/settingsApiSlice';
 import { useGetThemeSettingsQuery } from '../features/themeSettings/themeSettingsApiSlice';
 import type { Settings, ThemeSettings } from '../types';
 import ContactInfo from './ContactInfo';
+import Hours from './Hours';
+import NavBar from './NavBar';
 import TopBanner from './TopBanner';
+import MainPage from './MainPage';
+import Address from './Address';
 
 export const App = () => {
     const {
@@ -31,7 +36,36 @@ export const App = () => {
     const settings = settingsData?.data;
     const themeSettings = themeSettingsData?.data;
 
-    const { bannerMessage, ...contactInfo } = settings as Settings;
+    const {
+        email,
+        facebook,
+        instagram,
+        phone,
+        tiktok,
+        hoursFriday,
+        hoursMonday,
+        hoursSaturday,
+        hoursSunday,
+        hoursThursday,
+        hoursTuesday,
+        hoursWednesday,
+        address,
+        bannerMessage,
+        mainBlurb,
+    } = settings as Settings;
+
+    const contactInfo = { email, facebook, instagram, phone, tiktok };
+
+    const hoursInfo = {
+        hoursFriday,
+        hoursMonday,
+        hoursSaturday,
+        hoursSunday,
+        hoursThursday,
+        hoursTuesday,
+        hoursWednesday,
+    };
+
     const { bannerImage } = themeSettings as ThemeSettings;
 
     return (
@@ -40,8 +74,28 @@ export const App = () => {
                 bannerImage={bannerImage}
                 bannerMessage={bannerMessage}
             />
-            <ContactInfo contactInfo={contactInfo} />
-            <MenuCategories />
+            <BrowserRouter>
+                <NavBar />
+                <Routes>
+                    <Route
+                        path='/'
+                        element={<MainPage mainBlurb={mainBlurb} />}
+                    />
+                    <Route
+                        path='contact'
+                        element={<ContactInfo contactInfo={contactInfo} />}
+                    />
+                    <Route
+                        path='hours'
+                        element={<Hours hoursInfo={hoursInfo} />}
+                    />
+                    <Route path='menu' element={<MenuCategories />} />
+                    <Route
+                        path='address'
+                        element={<Address address={address} />}
+                    />
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 };

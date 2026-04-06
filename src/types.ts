@@ -10,6 +10,7 @@ export interface Menuitem {
 
 export interface Settings {
     bannerMessage: string;
+    mainBlurb: string;
     phone: string;
     email: string;
     address: string;
