@@ -66,7 +66,15 @@ export const App = () => {
         hoursWednesday,
     };
 
-    const { bannerImage } = themeSettings as ThemeSettings;
+    const { bannerImage, selectedTheme } = themeSettings as ThemeSettings;
+    const {
+        accentColor,
+        backgroundColor,
+        buttonColor,
+        buttonTextColor,
+        linkColor,
+        textColor,
+    } = selectedTheme;
 
     return (
         <div>
