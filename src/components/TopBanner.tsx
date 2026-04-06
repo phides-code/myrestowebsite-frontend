@@ -8,18 +8,14 @@ interface TopBannerProps {
 
 const TopBanner = ({ bannerImage, bannerMessage }: TopBannerProps) => {
     return (
-        <div>
+        <header className='top-banner'>
             <img
+                className='top-banner__image'
                 src={`${URL_PREFIX}/images/${bannerImage.uuidName}`}
-                alt={'banner image'}
-                style={{
-                    width: '100%',
-                    maxHeight: '300px',
-                    objectFit: 'cover',
-                }}
+                alt='Banner'
             />
-            <p>{bannerMessage}</p>
-        </div>
+            <p className='top-banner__message'>{bannerMessage}</p>
+        </header>
     );
 };
 

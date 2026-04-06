@@ -6,15 +6,25 @@ interface ListMenuitemsProps {
 }
 
 const ListMenuitems = ({ menuCategory }: ListMenuitemsProps) => {
+    const categorySlug = menuCategory.category
+        .replace(/[^\w]+/g, '-')
+        .replace(/^-|-$/g, '');
+    const categoryHeadingId = `category-${categorySlug || 'items'}`;
+
     return (
-        <div>
-            <p>{menuCategory.category}</p>
-            <ul>
+        <section
+            className='menu-category'
+            aria-labelledby={categoryHeadingId}
+        >
+            <h2 className='menu-category__heading' id={categoryHeadingId}>
+                {menuCategory.category}
+            </h2>
+            <ul className='menu-category__list'>
                 {menuCategory.menuitems.map((menuitem) => (
                     <MenuitemListItem key={menuitem.id} menuitem={menuitem} />
                 ))}
             </ul>
-        </div>
+        </section>
     );
 };
 

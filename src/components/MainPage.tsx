@@ -3,7 +3,11 @@ interface MainPageProps {
 }
 
 const Mainpage = ({ mainBlurb }: MainPageProps) => {
-    return <p>{mainBlurb}</p>;
+    return (
+        <div className='page-shell'>
+            <p className='main-page__blurb'>{mainBlurb}</p>
+        </div>
+    );
 };
 
 export default Mainpage;

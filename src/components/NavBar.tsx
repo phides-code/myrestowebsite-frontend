@@ -12,12 +12,10 @@ const NavBar = () => {
     };
 
     return (
-        <div
-            style={{
-                display: 'flex',
-            }}
-        >
+        <nav className='app-nav' aria-label='Main'>
             <button
+                type='button'
+                className='app-nav__btn'
                 onClick={(ev) => {
                     handleNav(ev, '/');
                 }}
@@ -25,14 +23,17 @@ const NavBar = () => {
                 Home
             </button>
             <button
+                type='button'
+                className='app-nav__btn'
                 onClick={(ev) => {
                     handleNav(ev, '/menu');
                 }}
             >
                 Menu
             </button>
-
             <button
+                type='button'
+                className='app-nav__btn'
                 onClick={(ev) => {
                     handleNav(ev, '/contact');
                 }}
@@ -40,6 +41,8 @@ const NavBar = () => {
                 Contact
             </button>
             <button
+                type='button'
+                className='app-nav__btn'
                 onClick={(ev) => {
                     handleNav(ev, '/address');
                 }}
@@ -47,13 +50,15 @@ const NavBar = () => {
                 Address
             </button>
             <button
+                type='button'
+                className='app-nav__btn'
                 onClick={(ev) => {
                     handleNav(ev, '/hours');
                 }}
             >
                 Hours
             </button>
-        </div>
+        </nav>
     );
 };
 

@@ -6,16 +6,31 @@ const MenuCategories = () => {
     const { data, isError, isLoading } = useGetMenuitemsQuery();
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className='page-shell menu-page__status' role='status'>
+                Loading…
+            </div>
+        );
     }
     if (isError) {
-        return <div>Error loading menu items.</div>;
+        return (
+            <div
+                className='page-shell menu-page__status menu-page__status--error'
+                role='alert'
+            >
+                Error loading menu items.
+            </div>
+        );
     }
 
     const menuitems = data?.data ?? [];
 
     if (menuitems.length === 0) {
-        return <div>No menu items found.</div>;
+        return (
+            <div className='page-shell menu-page__status'>
+                No menu items found.
+            </div>
+        );
     }
 
     const categorizedMenuitems: MenuCategory[] = [
@@ -26,8 +41,8 @@ const MenuCategories = () => {
     }));
 
     return (
-        <div>
-            <h1>Menu items</h1>
+        <div className='page-shell'>
+            <h1 className='menu-page__title'>Our Menu</h1>
             {categorizedMenuitems.map((menuCategory) => (
                 <ListMenuitems
                     key={menuCategory.category}

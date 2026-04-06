@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import MenuCategories from '../features/menuitems/MenuCategories';
 import { useGetSettingsQuery } from '../features/settings/settingsApiSlice';
@@ -26,11 +27,19 @@ export const App = () => {
     const isError = isSettingsError || isThemeSettingsError;
 
     if (isLoading) {
-        return <div>...</div>;
+        return (
+            <div className='app-loading' role='status'>
+                <span className='app-loading__text'>Loading…</span>
+            </div>
+        );
     }
 
     if (isError) {
-        return <div>Something went wrong</div>;
+        return (
+            <div className='app-error' role='alert'>
+                Something went wrong
+            </div>
+        );
     }
 
     const settings = settingsData?.data;
@@ -76,33 +85,51 @@ export const App = () => {
         textColor,
     } = selectedTheme;
 
+    const themeVars = {
+        '--color-background': backgroundColor,
+        '--color-text': textColor,
+        '--color-link': linkColor,
+        '--color-accent': accentColor,
+        '--color-button': buttonColor,
+        '--color-button-text': buttonTextColor,
+    } as CSSProperties;
+
     return (
-        <div>
+        <div className='app-root' style={themeVars}>
             <TopBanner
                 bannerImage={bannerImage}
                 bannerMessage={bannerMessage}
             />
             <BrowserRouter>
-                <NavBar />
-                <Routes>
-                    <Route
-                        path='/'
-                        element={<MainPage mainBlurb={mainBlurb} />}
-                    />
-                    <Route
-                        path='contact'
-                        element={<ContactInfo contactInfo={contactInfo} />}
-                    />
-                    <Route
-                        path='hours'
-                        element={<Hours hoursInfo={hoursInfo} />}
-                    />
-                    <Route path='menu' element={<MenuCategories />} />
-                    <Route
-                        path='address'
-                        element={<Address address={address} />}
-                    />
-                </Routes>
+                <div className='app-body'>
+                    <NavBar />
+                    <main className='app-main'>
+                        <Routes>
+                            <Route
+                                path='/'
+                                element={<MainPage mainBlurb={mainBlurb} />}
+                            />
+                            <Route
+                                path='contact'
+                                element={
+                                    <ContactInfo contactInfo={contactInfo} />
+                                }
+                            />
+                            <Route
+                                path='hours'
+                                element={<Hours hoursInfo={hoursInfo} />}
+                            />
+                            <Route
+                                path='menu'
+                                element={<MenuCategories />}
+                            />
+                            <Route
+                                path='address'
+                                element={<Address address={address} />}
+                            />
+                        </Routes>
+                    </main>
+                </div>
             </BrowserRouter>
         </div>
     );
